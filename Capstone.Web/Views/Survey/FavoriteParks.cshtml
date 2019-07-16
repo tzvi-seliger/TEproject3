@@ -1,0 +1,61 @@
+﻿@model List<Park>
+@{
+    ViewData["Title"] = "FavoriteParks";
+}
+
+
+@{
+    <h2><strong>Favorite Parks</strong></h2>
+    <style>
+
+        h2 {
+            text-align: center;
+            text-decoration: underline;
+        }
+
+
+        .info {
+            text-align: left;
+            width: 100%;
+            vertical-align: central;
+            color: black;
+            font-size: 19px;
+            font-family: 'Franklin Gothic';
+            
+        }
+        body {
+            line-height: 1;
+            padding-top: 0px;
+            background-color: gainsboro;
+        }
+        
+    </style>
+
+    foreach (var park in Model)
+    {
+        string parkImage = park.ParkCode + ".jpg";
+    <div class="row">
+
+        
+            
+
+        <div class="info">
+            <table class="table">
+            <tr>
+                <th><img style="border-radius: 10px;" class="image" src="~/images/@parkImage" /></th>
+                <td><span id="Park_Name">@park.ParkName</span></td>
+                <td><span>Park Rating: @park.Count</span></td>
+                
+                
+            </tr>
+            </table>
+            <br />
+        </div>
+    </div>
+    
+
+    }
+}
+
+
+

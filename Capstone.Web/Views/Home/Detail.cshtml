@@ -1,0 +1,167 @@
+﻿@model Park
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h2><strong>National Park Geek</strong></h2>
+@{
+
+    <style>
+
+        h2 {
+            display: inline;
+            padding-top: 50px;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        div {
+            align-content: flex-end;
+            display: inline-block;
+            width: 54%;
+            margin-right: 10px;
+            vertical-align: central;
+            position: relative;
+            top: 0;
+            padding-left: 100px;
+        }
+
+        .parkImage {
+            padding-bottom: 60px;
+            width: 50%;
+        }
+
+        ul {
+            align-content: flex-end;
+            display: inline-block;
+            width: 300px;
+            margin-right: 10px;
+            vertical-align: central;
+        }
+
+        #parkDetails th{
+            padding-right:  20px;
+        }
+
+        #parkDetails tr{
+            padding-bottom:  100px;
+        }
+    </style>
+    string parkImage = Model.ParkCode + ".jpg";
+}
+
+
+<img class="parkImage" src="~/images/@parkImage" />
+
+<span id="Park_Name" style="font-size: 32px"><h3 style="padding-left:  50px">@Model.ParkName</h3></span>
+
+
+<Div>
+
+    <p id="Park_Description">@Model.ParkDescription</p>
+    <p id="Park_State">State of Location:  @Model.State</p>
+    <p id="Acreage">Acreage:  @Model.Acreage</p>
+    <p id="Elevation_In_Feet">Elevation(Feet):  @Model.ElevationInFeet</p>
+    <p id="Miles_Of_Trails">Miles of Trails:  @Model.MilesOfTrail</p>
+    <p id="Number_Of_Campsites">Number of Campsites:  @Model.NumberOfCampsites</p>
+    <p id="Climate">Climate:  @Model</p>
+    <p id="Year_Founded">Year Founded:  @Model.YearFounded</p>
+    <p id="Annual_Visitor_Count">Annual Visitor Count:  @Model.AnnualVisitorCount</p>
+    <p id="Inspirational_Quote">Inspirational Quote:</p>
+    <p id="Entry_Fee">Entry Fee:  $@Model.EntryFee</p>
+    <p id="Number_Of_Animal_Species">Number of Animal Species:  @Model.NumberOfAnimalSpecies</p>
+    <p>"@Model.InspirationalQuote"</p>
+
+    <table id="parkDetails">
+        <tr>
+            <th>State of Location:</th>
+            <td>@Model.State</td>
+        </tr>
+        <tr>
+            <th>Acreage:</th>
+            <td>@Model.Acreage</td>
+        </tr>
+        <tr>
+            <th>Elevation(Feet):</th>
+            <td>@Model.ElevationInFeet</td>
+        </tr>
+    </table>
+
+
+</Div>
+
+@{
+    foreach (Weather item in Model.Forecast)
+    {
+        <p>@item.fiveDayForecastValue</p>
+        @foreach (string recommendation in item.Recommendations)
+        {
+            <p>@recommendation</p>
+        }
+    }
+}
+
+<ul>
+    @{
+
+        foreach (var forecast in Model.Forecast)
+        {
+            string weatherImage = forecast.forecast + ".png";
+
+            <li><img class="parkimage" src="~/images/@weatherImage" /></li>
+            <li>Day: @forecast.fiveDayForecastValue</li>
+
+
+
+            @if (forecast.tempUnit == "f")
+            {
+
+                int fahrenheitLow = forecast.low;
+
+                <li>Low Temp: @fahrenheitLow</li>
+            }
+
+            @if (forecast.tempUnit == "f")
+            {
+
+                int fahrenheitHigh = forecast.high;
+
+                <li>High Temp: @fahrenheitHigh</li>
+            }
+
+            @if (forecast.tempUnit == "c")
+            {
+
+                int celsiusLow = (forecast.low - 32) * 5 / 9;
+
+                <li>Low Temp: @celsiusLow</li>
+            }
+
+
+            @if (forecast.tempUnit == "c")
+            {
+
+                int celsiusHigh = (forecast.high - 32) * 5 / 9;
+
+                <li>High Temp: @celsiusHigh</li>
+            }
+        }
+    }
+</ul>
+
+
+
+<form asp-controller="Home" asp-action="AssignTempUnit" method="post">
+    <div>
+
+        <input type="hidden" name="parkCode" value="@Model.ParkCode" />
+
+        <input type="radio" name="tempUnit" value="c" />Celsius<br>
+        <input type="radio" name="tempUnit" value="f" />Fahrenheit<br>
+        <input type="submit" value="Submit" />
+    </div>
+</form>

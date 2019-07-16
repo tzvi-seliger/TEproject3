@@ -1,0 +1,207 @@
+﻿@model SurveyResult
+
+@{
+    ViewData["Title"] = "Survey";
+}
+
+<h2><strong>Please take our Parks survey</strong></h2>
+
+<style>
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+        display: block;
+    }
+    h2 {
+        font-size: 40px;
+        font-family: 'Franklin Gothic';
+        text-align: center;
+        text-decoration: underline;
+    }
+    .container {
+        align-content: flex-end;
+        display: block;
+        width: 100%;
+        vertical-align: central;
+        position: relative;
+        top: 0;
+        padding-left: 100px;
+        margin-top: 10px;
+    }
+
+    body {
+        line-height: 1;
+        background-color: gainsboro;
+    }
+
+    ol, ul {
+        list-style: none;
+    }
+
+    blockquote, q {
+        quotes: none;
+    }
+
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .header {
+        position: absolute;
+        top: 10%;
+        font-size: 3em;
+        font-family: 'Franklin Gothic';
+        color: black;
+        text-shadow: 17px 5px 17px #333;
+    }
+
+    .body {
+        font-family: 'Franklin Gothic'
+        position: relative;
+        margin-top: 15%;
+        font-size: 1.5em;
+        font-weight: 500;
+        letter-spacing: .01em;
+        margin-right: auto;
+        margin-left: auto;
+        width: 80%;
+        border: groove;
+        border-radius: 10px;
+        border-width: 10px;
+        vertical-align: middle;
+        height:0%;
+
+        
+    }
+    label {
+        margin-right: 2%;
+        margin-bottom: 2%;
+        color: purple;
+    }
+    input[type="submit"]{
+        margin-top: 10%;
+        margin-left: 25%;
+        background: green;
+        color: white;
+        border-radius: 10%;
+        padding: 1.5%;
+    }
+    /*
+
+    .logo, .header-text {
+        display: inline;
+        text-align: center;
+        vertical-align: top;
+    }
+    
+    img {
+        margin-left: -7%;
+        border-radius: 20%;
+        box-shadow:10px 10px 20px #333;
+    }
+    .geek_image {
+        z-index: 2;
+    }
+    .Scenery_image {
+        z-index: 1;
+    }
+    form{
+        border: 1px solid grey;
+        border-radius: 10px;
+        padding: 3%;
+    }
+        */
+</style>
+<!--
+<div class="header">
+    
+    <div class="header-text">
+        <h2 class="header-text"><strong>National Park Geek Survey</strong></h2>
+    </div>
+</div>
+-->
+<div class="body">
+    <form asp-controller="Survey" asp-action="SaveSurvey" method="post">
+
+        <div style="background-color: white;">
+            <table class="table">
+                
+                <tr>
+                    <td><label>Favorite National Park</label></td>
+                    <td>
+                        <div class="dropdown">
+                            <select id="parks" class="dropdown-content" asp-for="parkCode" asp-items="Park.parks"></select>
+                            <span asp-validation-for="parkCode"></span>
+
+                        </div>
+                    </td>
+                </tr>
+                    <tr>
+                        <td><label>Your Email</label></td>
+                        <td>
+                            <div>
+                                <input type="text" asp-for="emailAddress" />
+                                <span asp-validation-for="emailAddress"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>State of residence</label></td>
+                        <td>
+                            <div class="dropdown">
+                                <select id="states" class="dropdown-content" asp-for="state" asp-items="Park.states"></select>
+                                <span asp-validation-for="state"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Activity Level</label></td>
+                        <td>
+                            <div>
+
+                                <input type="radio" value="inactive" asp-for="activityLevel" /> inactive
+                                <input type="radio" value="sedentary" asp-for="activityLevel" /> sedentary
+                                <input type="radio" value="active" asp-for="activityLevel" /> active
+                                <input type="radio" value="extremely active" asp-for="activityLevel" /> extremely active
+
+                                <span asp-validation-for="activityLevel"></span>
+                            </div>
+                        </td>
+                    </tr>
+                
+            </table>
+            <div style="vertical-align: middle; padding-top: 7px; padding-bottom: 10px;">
+                <input type="submit" value="Submit" />
+            </div>
+
+        </div>
+    </form>
+</div>
+
